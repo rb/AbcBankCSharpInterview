@@ -35,7 +35,7 @@ namespace abc_bank
             foreach (Account a in Accounts)
             {
                 statement += "\n" + StatementForAccount(a) + "\n";
-                total += a.SumTransactions();
+                total += a.Balance;
             }
             statement += "\nTotal In All Accounts " + ToDollars(total);
             return statement;
@@ -60,7 +60,7 @@ namespace abc_bank
 
             //Now total up all the transactions
             double total = 0.0;
-            foreach (Transaction t in a.transactions) {
+            foreach (Transaction t in a.Transactions) {
                 s += "  " + (t.Amount < 0 ? "withdrawal" : "deposit") + " " + ToDollars(t.Amount) + "\n";
                 total += t.Amount;
             }

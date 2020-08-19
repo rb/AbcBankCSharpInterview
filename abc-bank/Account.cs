@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace abc_bank
 {
@@ -11,13 +12,14 @@ namespace abc_bank
         public const int MAXI_SAVINGS = 2;
 
         private readonly int accountType;
-        public List<Transaction> transactions;
+        public List<Transaction> Transactions { get; } = new List<Transaction>();
 
         public Account(int accountType) 
         {
             this.accountType = accountType;
-            this.transactions = new List<Transaction>();
         }
+
+        public double Balance => Transactions.Sum(transaction => transaction.Amount);
 
         public void Deposit(double amount)
         {
@@ -26,7 +28,7 @@ namespace abc_bank
                 throw new ArgumentOutOfRangeException(nameof(amount), "must be greater than zero");
             }
 
-            transactions.Add(new Transaction(amount));
+            Transactions.Add(new Transaction(amount));
         }
 
         public void Withdraw(double amount)
@@ -36,12 +38,12 @@ namespace abc_bank
                 throw new ArgumentOutOfRangeException(nameof(amount), "must be greater than zero");
             }
 
-            transactions.Add(new Transaction(-amount));
+            Transactions.Add(new Transaction(-amount));
         }
 
         public double InterestEarned() 
         {
-            double amount = SumTransactions();
+            double amount = Balance;
             switch(accountType){
                 case SAVINGS:
                     if (amount <= 1000)
@@ -61,19 +63,6 @@ namespace abc_bank
                 default:
                     return amount * 0.001;
             }
-        }
-
-        public double SumTransactions()
-        {
-           return CheckIfTransactionsExist();
-        }
-
-        private double CheckIfTransactionsExist()
-        {
-            double amount = 0.0;
-            foreach (Transaction t in transactions)
-                amount += t.Amount;
-            return amount;
         }
 
         public int GetAccountType() 

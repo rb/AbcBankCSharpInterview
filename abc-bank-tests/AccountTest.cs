@@ -14,7 +14,7 @@ namespace abc_bank_tests
 
             savings.Deposit(2000.0);
 
-            Assert.AreEqual(2000.0, savings.SumTransactions());
+            Assert.AreEqual(2000.0, savings.Balance);
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace abc_bank_tests
 
             savings.Withdraw(250.0);
 
-            Assert.AreEqual(250.0, savings.SumTransactions());
+            Assert.AreEqual(250.0, savings.Balance);
         }
 
         [TestMethod]
@@ -66,6 +66,16 @@ namespace abc_bank_tests
             checking.Deposit(500.0);
 
             checking.Withdraw(0.0);
+        }
+
+        [TestMethod]
+        public void Balance_SumsTransactionAmounts()
+        {
+            Account checking = new Account(Account.CHECKING);
+            checking.Deposit(1000.0);
+            checking.Withdraw(250.0);
+
+            Assert.AreEqual(750.0, checking.Balance);
         }
 
         [TestMethod]
