@@ -1,4 +1,5 @@
 ﻿using abc_bank;
+using abc_bank.Accounts;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace abc_bank_tests
@@ -12,8 +13,8 @@ namespace abc_bank_tests
             Bank bofa = new Bank();
             Customer mark = new Customer("Mark");
             bofa.AddCustomer(mark);
-            mark.OpenAccount(new Account(Account.CHECKING));
-            mark.OpenAccount(new Account(Account.SAVINGS));
+            mark.OpenAccount(new CheckingAccount());
+            mark.OpenAccount(new SavingsAccount());
 
             string report = bofa.CustomerSummary();
 
@@ -26,11 +27,11 @@ namespace abc_bank_tests
             Bank capfed = new Bank();
             Customer fred = new Customer("Fred");
             capfed.AddCustomer(fred);
-            fred.OpenAccount(new Account(Account.CHECKING));
+            fred.OpenAccount(new CheckingAccount());
             Customer jane = new Customer("Jane");
             capfed.AddCustomer(jane);
-            jane.OpenAccount(new Account(Account.CHECKING));
-            jane.OpenAccount(new Account(Account.SAVINGS));
+            jane.OpenAccount(new CheckingAccount());
+            jane.OpenAccount(new SavingsAccount());
 
             string report = capfed.CustomerSummary();
 
@@ -54,13 +55,13 @@ namespace abc_bank_tests
 
             Customer john = new Customer("John");
             bofa.AddCustomer(john);
-            Account johnChecking = new Account(Account.CHECKING);
+            Account johnChecking = new CheckingAccount();
             john.OpenAccount(johnChecking);
             johnChecking.Deposit(10000.0);
 
             Customer peter = new Customer("Peter");
             bofa.AddCustomer(peter);
-            Account peterMaxiSavings = new Account(Account.MAXI_SAVINGS);
+            Account peterMaxiSavings = new MaxiSavingsAccount();
             peter.OpenAccount(peterMaxiSavings);
             peterMaxiSavings.Deposit(3000.0);
 

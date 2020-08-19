@@ -24,7 +24,7 @@ namespace abc_bank
         {
             double total = 0;
             foreach (Account a in Accounts)
-                total += a.InterestEarned();
+                total += a.InterestEarned;
             return total;
         }
 
@@ -45,18 +45,7 @@ namespace abc_bank
         {
             String s = "";
 
-           //Translate to pretty account type
-            switch(a.GetAccountType()){
-                case Account.CHECKING:
-                    s += "Checking Account\n";
-                    break;
-                case Account.SAVINGS:
-                    s += "Savings Account\n";
-                    break;
-                case Account.MAXI_SAVINGS:
-                    s += "Maxi Savings Account\n";
-                    break;
-            }
+            s += $"{a.Name}\n";
 
             //Now total up all the transactions
             double total = 0.0;
