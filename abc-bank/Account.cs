@@ -22,22 +22,24 @@ namespace abc_bank
             this.transactions = new List<Transaction>();
         }
 
-        public void Deposit(double amount) 
+        public void Deposit(double amount)
         {
-            if (amount <= 0) {
-                throw new ArgumentException("amount must be greater than zero");
-            } else {
-                transactions.Add(new Transaction(amount));
+            if (amount <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(amount), "must be greater than zero");
             }
+
+            transactions.Add(new Transaction(amount));
         }
 
-        public void Withdraw(double amount) 
+        public void Withdraw(double amount)
         {
-            if (amount <= 0) {
-                throw new ArgumentException("amount must be greater than zero");
-            } else {
-                transactions.Add(new Transaction(-amount));
+            if (amount <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(amount), "must be greater than zero");
             }
+
+            transactions.Add(new Transaction(-amount));
         }
 
         public double InterestEarned() 
