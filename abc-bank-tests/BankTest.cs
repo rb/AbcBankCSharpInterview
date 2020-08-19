@@ -7,9 +7,6 @@ namespace abc_bank_tests
     [TestClass]
     public class BankTest
     {
-
-        private static readonly double DOUBLE_DELTA = 1e-15;
-
         [TestMethod]
         public void CustomerSummary_ReportsOnCustomersAndTheirOpenedAccounts()
         {
@@ -52,37 +49,28 @@ namespace abc_bank_tests
         }
 
         [TestMethod]
-        public void CheckingAccount() {
-            Bank bank = new Bank();
-            Account checkingAccount = new Account(Account.CHECKING);
-            Customer bill = new Customer("Bill").OpenAccount(checkingAccount);
-            bank.AddCustomer(bill);
+        public void TotalInterestPaid_ReportsOnAllCustomersAccounts()
+        {
+            Bank bofa = new Bank();
 
-            checkingAccount.Deposit(100.0);
+            Customer john = new Customer("John");
+            bofa.AddCustomer(john);
+            Account johnChecking = new Account(Account.CHECKING);
+            john.OpenAccount(johnChecking);
+            johnChecking.Deposit(10000.0);
 
-            Assert.AreEqual(0.1, bank.totalInterestPaid(), DOUBLE_DELTA);
-        }
+            Customer peter = new Customer("Peter");
+            bofa.AddCustomer(peter);
+            Account peterMaxiSavings = new Account(Account.MAXI_SAVINGS);
+            peter.OpenAccount(peterMaxiSavings);
+            peterMaxiSavings.Deposit(3000.0);
 
-        [TestMethod]
-        public void Savings_account() {
-            Bank bank = new Bank();
-            Account checkingAccount = new Account(Account.SAVINGS);
-            bank.AddCustomer(new Customer("Bill").OpenAccount(checkingAccount));
+            double result = bofa.totalInterestPaid();
 
-            checkingAccount.Deposit(1500.0);
-
-            Assert.AreEqual(2.0, bank.totalInterestPaid(), DOUBLE_DELTA);
-        }
-
-        [TestMethod]
-        public void Maxi_savings_account() {
-            Bank bank = new Bank();
-            Account checkingAccount = new Account(Account.MAXI_SAVINGS);
-            bank.AddCustomer(new Customer("Bill").OpenAccount(checkingAccount));
-
-            checkingAccount.Deposit(3000.0);
-
-            Assert.AreEqual(170.0, bank.totalInterestPaid(), DOUBLE_DELTA);
+            // John's $10,000 in checking at 0.01% = 10, plus
+            // Peter's $3,000 in maxi savings (first thousand at 2% (20),
+            //   second thousand at 5% (50), third at 10% (100)) = 170
+            Assert.AreEqual(180.0, result);
         }
     }
 }

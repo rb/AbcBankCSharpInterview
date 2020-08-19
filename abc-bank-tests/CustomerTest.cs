@@ -59,5 +59,23 @@ namespace abc_bank_tests
 
             Assert.AreEqual(3, jake.GetNumberOfAccounts());
         }
+
+        [TestMethod]
+        public void TotalInterestEarned_SumsInterestAcrossCustomersAccounts()
+        {
+            Customer john = new Customer("John");
+            Account checking = new Account(Account.CHECKING);
+            Account savings = new Account(Account.SAVINGS);
+            john.OpenAccount(checking).OpenAccount(savings);
+            checking.Deposit(1000.0);
+            savings.Deposit(2000.0);
+
+            double interest = john.TotalInterestEarned();
+
+            // $1000 in checking at 0.01% = 1, plus
+            // $2000 in savings (first thousand at 0.01% (1),
+            //   second thousand at 0.02% (2)) = 3
+            Assert.AreEqual(4.0, interest);
+        }
     }
 }
