@@ -11,14 +11,44 @@ namespace abc_bank_tests
         private static readonly double DOUBLE_DELTA = 1e-15;
 
         [TestMethod]
-        public void CustomerSummary() 
+        public void CustomerSummary_ReportsOnCustomersAndTheirOpenedAccounts()
         {
-            Bank bank = new Bank();
-            Customer john = new Customer("John");
-            john.OpenAccount(new Account(Account.CHECKING));
-            bank.AddCustomer(john);
+            Bank bofa = new Bank();
+            Customer mark = new Customer("Mark");
+            bofa.AddCustomer(mark);
+            mark.OpenAccount(new Account(Account.CHECKING));
+            mark.OpenAccount(new Account(Account.SAVINGS));
 
-            Assert.AreEqual("Customer Summary\n - John (1 account)", bank.CustomerSummary());
+            string report = bofa.CustomerSummary();
+
+            Assert.AreEqual("Customer Summary\n - Mark (2 accounts)", report);
+        }
+
+        [TestMethod]
+        public void CustomerSummary_PluralizesAccountsToBeGrammaticallyCorrect()
+        {
+            Bank capfed = new Bank();
+            Customer fred = new Customer("Fred");
+            capfed.AddCustomer(fred);
+            fred.OpenAccount(new Account(Account.CHECKING));
+            Customer jane = new Customer("Jane");
+            capfed.AddCustomer(jane);
+            jane.OpenAccount(new Account(Account.CHECKING));
+            jane.OpenAccount(new Account(Account.SAVINGS));
+
+            string report = capfed.CustomerSummary();
+
+            Assert.AreEqual("Customer Summary\n - Fred (1 account)\n - Jane (2 accounts)", report);
+        }
+
+        [TestMethod]
+        public void CustomerSummary_HasNothingToReportOnWithoutCustomers()
+        {
+            Bank lonelyBank = new Bank();
+
+            string report = lonelyBank.CustomerSummary();
+
+            Assert.AreEqual("Customer Summary", report);
         }
 
         [TestMethod]
