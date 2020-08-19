@@ -14,7 +14,7 @@ namespace abc_bank_tests
 
             savings.Deposit(2000.0);
 
-            Assert.AreEqual(2000.0, savings.sumTransactions());
+            Assert.AreEqual(2000.0, savings.SumTransactions());
         }
 
         [TestMethod]
@@ -45,7 +45,7 @@ namespace abc_bank_tests
 
             savings.Withdraw(250.0);
 
-            Assert.AreEqual(250.0, savings.sumTransactions());
+            Assert.AreEqual(250.0, savings.SumTransactions());
         }
 
         [TestMethod]

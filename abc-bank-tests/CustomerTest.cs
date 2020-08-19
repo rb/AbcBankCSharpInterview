@@ -40,7 +40,7 @@ namespace abc_bank_tests
             john.OpenAccount(new Account(Account.CHECKING));
             john.OpenAccount(new Account(Account.SAVINGS));
 
-            Assert.AreEqual(2, john.GetNumberOfAccounts());
+            Assert.AreEqual(2, john.Accounts.Count);
         }
 
         /// <remarks>
@@ -56,7 +56,7 @@ namespace abc_bank_tests
                 .OpenAccount(new Account(Account.SAVINGS))
                 .OpenAccount(new Account(Account.SAVINGS));
 
-            Assert.AreEqual(3, jake.GetNumberOfAccounts());
+            Assert.AreEqual(3, jake.Accounts.Count);
         }
 
         [TestMethod]

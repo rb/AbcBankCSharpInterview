@@ -41,7 +41,7 @@ namespace abc_bank
 
         public double InterestEarned() 
         {
-            double amount = sumTransactions();
+            double amount = SumTransactions();
             switch(accountType){
                 case SAVINGS:
                     if (amount <= 1000)
@@ -63,15 +63,16 @@ namespace abc_bank
             }
         }
 
-        public double sumTransactions() {
-           return CheckIfTransactionsExist(true);
+        public double SumTransactions()
+        {
+           return CheckIfTransactionsExist();
         }
 
-        private double CheckIfTransactionsExist(bool checkAll) 
+        private double CheckIfTransactionsExist()
         {
             double amount = 0.0;
             foreach (Transaction t in transactions)
-                amount += t.amount;
+                amount += t.Amount;
             return amount;
         }
 

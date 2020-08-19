@@ -6,54 +6,42 @@ namespace abc_bank
 {
     public class Customer
     {
-        private String name;
-        private List<Account> accounts;
+        public string Name { get; }
+        public List<Account> Accounts { get; } = new List<Account>();
 
         public Customer(String name)
         {
-            this.name = name;
-            this.accounts = new List<Account>();
-        }
-
-        public String GetName()
-        {
-            return name;
+            Name = name;
         }
 
         public Customer OpenAccount(Account account)
         {
-            accounts.Add(account);
+            Accounts.Add(account);
             return this;
-        }
-
-        public int GetNumberOfAccounts()
-        {
-            return accounts.Count;
         }
 
         public double TotalInterestEarned() 
         {
             double total = 0;
-            foreach (Account a in accounts)
+            foreach (Account a in Accounts)
                 total += a.InterestEarned();
             return total;
         }
 
         public String GetStatement() 
         {
-            String statement = null;
-            statement = "Statement for " + name + "\n";
+            String statement = "Statement for " + Name + "\n";
             double total = 0.0;
-            foreach (Account a in accounts) 
+            foreach (Account a in Accounts)
             {
-                statement += "\n" + statementForAccount(a) + "\n";
-                total += a.sumTransactions();
+                statement += "\n" + StatementForAccount(a) + "\n";
+                total += a.SumTransactions();
             }
             statement += "\nTotal In All Accounts " + ToDollars(total);
             return statement;
         }
 
-        private String statementForAccount(Account a) 
+        private String StatementForAccount(Account a)
         {
             String s = "";
 
@@ -73,8 +61,8 @@ namespace abc_bank
             //Now total up all the transactions
             double total = 0.0;
             foreach (Transaction t in a.transactions) {
-                s += "  " + (t.amount < 0 ? "withdrawal" : "deposit") + " " + ToDollars(t.amount) + "\n";
-                total += t.amount;
+                s += "  " + (t.Amount < 0 ? "withdrawal" : "deposit") + " " + ToDollars(t.Amount) + "\n";
+                total += t.Amount;
             }
             s += "Total " + ToDollars(total);
             return s;

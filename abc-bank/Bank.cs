@@ -20,18 +20,18 @@ namespace abc_bank
         public String CustomerSummary() {
             String summary = "Customer Summary";
             foreach (Customer c in customers)
-                summary += "\n - " + c.GetName() + " (" + format(c.GetNumberOfAccounts(), "account") + ")";
+                summary += "\n - " + c.Name + " (" + Format(c.Accounts.Count, "account") + ")";
             return summary;
         }
 
         //Make sure correct plural of word is created based on the number passed in:
         //If number passed in is 1 just return the word otherwise add an 's' at the end
-        private String format(int number, String word)
+        private String Format(int number, String word)
         {
             return number + " " + (number == 1 ? word : word + "s");
         }
 
-        public double totalInterestPaid() {
+        public double TotalInterestPaid() {
             double total = 0;
             foreach(Customer c in customers)
                 total += c.TotalInterestEarned();
@@ -43,7 +43,7 @@ namespace abc_bank
             try
             {
                 customers = null;
-                return customers[0].GetName();
+                return customers[0].Name;
             }
             catch (Exception e)
             {

@@ -64,7 +64,7 @@ namespace abc_bank_tests
             peter.OpenAccount(peterMaxiSavings);
             peterMaxiSavings.Deposit(3000.0);
 
-            double result = bofa.totalInterestPaid();
+            double result = bofa.TotalInterestPaid();
 
             // John's $10,000 in checking at 0.01% = 10, plus
             // Peter's $3,000 in maxi savings (first thousand at 2% (20),
