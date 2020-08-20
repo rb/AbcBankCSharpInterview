@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace abc_bank
 {
@@ -11,6 +12,9 @@ namespace abc_bank
         {
             Customers = new List<Customer>();
         }
+
+        public double TotalInterestPaid =>
+            Customers.Sum(customer => customer.TotalInterestEarned);
 
         public void AddCustomer(Customer customer)
         {
@@ -29,13 +33,6 @@ namespace abc_bank
         private String Format(int number, String word)
         {
             return number + " " + (number == 1 ? word : word + "s");
-        }
-
-        public double TotalInterestPaid() {
-            double total = 0;
-            foreach(Customer c in Customers)
-                total += c.TotalInterestEarned();
-            return total;
         }
     }
 }

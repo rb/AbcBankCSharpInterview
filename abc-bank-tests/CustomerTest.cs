@@ -71,7 +71,7 @@ namespace abc_bank_tests
             checking.Deposit(1000.0);
             savings.Deposit(2000.0);
 
-            double interest = john.TotalInterestEarned();
+            double interest = john.TotalInterestEarned;
 
             // $1000 in checking at 0.01% = 1, plus
             // $2000 in savings (first thousand at 0.01% (1),

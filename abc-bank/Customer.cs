@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 
 namespace abc_bank
 {
@@ -14,18 +15,13 @@ namespace abc_bank
             Name = name;
         }
 
+        public double TotalInterestEarned =>
+            Accounts.Sum(account => account.InterestEarned);
+
         public Customer OpenAccount(Account account)
         {
             Accounts.Add(account);
             return this;
-        }
-
-        public double TotalInterestEarned() 
-        {
-            double total = 0;
-            foreach (Account a in Accounts)
-                total += a.InterestEarned;
-            return total;
         }
 
         public String GetStatement() 
