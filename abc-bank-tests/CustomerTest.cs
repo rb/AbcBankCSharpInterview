@@ -122,5 +122,27 @@ namespace abc_bank_tests
 
             jim.TransferBetweenAccounts(jimChecking, mindyChecking, 500.0);
         }
+
+        [TestMethod]
+        public void ToNameAndAccountsCountString_IncludesNameAndNumberOfAccounts()
+        {
+            Customer bob = new Customer("Bob");
+            bob.OpenAccount(new CheckingAccount());
+
+            string result = bob.ToNameAndAccountsCountString();
+
+            Assert.AreEqual("Bob (1 account)", result);
+        }
+
+        [TestMethod]
+        public void ToNameAndAccountsCountString_CorrectlyPluralizesAccountLabel()
+        {
+            Customer kristen = new Customer("Kristen");
+            kristen.OpenAccount(new CheckingAccount()).OpenAccount(new SavingsAccount());
+
+            string result = kristen.ToNameAndAccountsCountString();
+
+            Assert.AreEqual("Kristen (2 accounts)", result);
+        }
     }
 }

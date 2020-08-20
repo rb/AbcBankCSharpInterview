@@ -8,42 +8,28 @@ namespace abc_bank_tests
     public class BankTest
     {
         [TestMethod]
-        public void CustomerSummary_ReportsOnCustomersAndTheirOpenedAccounts()
+        public void GetCustomerSummaryReport_ListsCustomersAndTheirOpenedAccounts()
         {
             Bank bofa = new Bank();
             Customer mark = new Customer("Mark");
             bofa.AddCustomer(mark);
             mark.OpenAccount(new CheckingAccount());
             mark.OpenAccount(new SavingsAccount());
+            Customer jim = new Customer("Jim");
+            bofa.AddCustomer(jim);
+            jim.OpenAccount(new SavingsAccount());
 
-            string report = bofa.CustomerSummary();
+            string report = bofa.GetCustomerSummaryReport();
 
-            Assert.AreEqual("Customer Summary\n - Mark (2 accounts)", report);
+            Assert.AreEqual("Customer Summary\n - Mark (2 accounts)\n - Jim (1 account)", report);
         }
 
         [TestMethod]
-        public void CustomerSummary_PluralizesAccountsToBeGrammaticallyCorrect()
-        {
-            Bank capfed = new Bank();
-            Customer fred = new Customer("Fred");
-            capfed.AddCustomer(fred);
-            fred.OpenAccount(new CheckingAccount());
-            Customer jane = new Customer("Jane");
-            capfed.AddCustomer(jane);
-            jane.OpenAccount(new CheckingAccount());
-            jane.OpenAccount(new SavingsAccount());
-
-            string report = capfed.CustomerSummary();
-
-            Assert.AreEqual("Customer Summary\n - Fred (1 account)\n - Jane (2 accounts)", report);
-        }
-
-        [TestMethod]
-        public void CustomerSummary_HasNothingToReportOnWithoutCustomers()
+        public void GetCustomerSummaryReport_HasNothingToReportOnWithoutCustomers()
         {
             Bank lonelyBank = new Bank();
 
-            string report = lonelyBank.CustomerSummary();
+            string report = lonelyBank.GetCustomerSummaryReport();
 
             Assert.AreEqual("Customer Summary", report);
         }

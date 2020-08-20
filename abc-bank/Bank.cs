@@ -21,18 +21,16 @@ namespace abc_bank
             Customers.Add(customer);
         }
 
-        public String CustomerSummary() {
-            String summary = "Customer Summary";
-            foreach (Customer c in Customers)
-                summary += "\n - " + c.Name + " (" + Format(c.Accounts.Count, "account") + ")";
-            return summary;
-        }
-
-        //Make sure correct plural of word is created based on the number passed in:
-        //If number passed in is 1 just return the word otherwise add an 's' at the end
-        private String Format(int number, String word)
+        public String GetCustomerSummaryReport()
         {
-            return number + " " + (number == 1 ? word : word + "s");
+            String summary = "Customer Summary";
+
+            foreach (Customer customer in Customers)
+            {
+                summary += $"\n - {customer.ToNameAndAccountsCountString()}";
+            }
+
+            return summary;
         }
     }
 }

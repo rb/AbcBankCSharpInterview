@@ -53,6 +53,9 @@ namespace abc_bank
             sourceAccount.Transfer(targetAccount, amount);
         }
 
+        public string ToNameAndAccountsCountString() =>
+            $"{Name} ({Accounts.Count} {(Accounts.Count == 1 ? "account" : "accounts")})";
+
         private String StatementForAccount(Account a)
         {
             String s = "";
